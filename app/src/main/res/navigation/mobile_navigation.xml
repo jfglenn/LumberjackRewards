@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/navigation_badges"
-        android:name="com.example.lumberjackrewards.BadgesFragment"
+        android:name="com.example.lumberjackrewards.BadgesActivity"
         android:label="@string/title_badges"
-        tools:layout="@layout/fragment_badges" />
+        tools:layout="@layout/activity_badges" />
 
     <fragment
         android:id="@+id/navigation_home"
@@ -19,7 +19,7 @@
 
     <fragment
         android:id="@+id/navigation_settings"
-        android:name="com.example.lumberjackrewards.SettingsFragment"
+        android:name="com.example.lumberjackrewards.SettingsActivity"
         android:label="@string/title_settings"
-        tools:layout="@layout/fragment_settings" />
+        tools:layout="@layout/activity_settings" />
 </navigation>
