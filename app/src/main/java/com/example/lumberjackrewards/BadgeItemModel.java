@@ -1,8 +1,6 @@
 package com.example.lumberjackrewards;
 
-import android.content.Context;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -56,6 +54,16 @@ public class BadgeItemModel {
         this.icon = icon;
     }
 
+    @Override
+    public String toString() {
+        return "BadgeItemModel{" +
+                "badgeID=" + badgeID +
+                ", description='" + description + '\'' +
+                ", name='" + name + '\'' +
+                ", icon='" + icon + '\'' +
+                '}';
+    }
+
     public void addNewBadgeItem(FirebaseFirestore db){
         String documentID = this.getName().replaceAll("\\s", "");
 
@@ -65,6 +73,19 @@ public class BadgeItemModel {
                     @Override
                     public void onSuccess(Void unused) {
                         Log.d("NEW_BADGE", "Successfully added new badge to db: " + this.toString());
+                    }
+                });
+    }
+
+    public void deleteBadgeItem(FirebaseFirestore db){
+        String documentID = this.getName().replaceAll("\\s", "");
+
+        // on below line are are adding a new badge to the db
+        db.collection("badges").document(documentID).delete()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        Log.d("DELETE_BADGE", "Successfully deleted badge from db: " + this.toString());
                     }
                 });
     }
