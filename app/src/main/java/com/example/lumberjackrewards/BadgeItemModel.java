@@ -64,8 +64,10 @@ public class BadgeItemModel {
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
-                        Log.d("BADGE", "Successful addition");
+                        Log.d("NEW_BADGE", "Successfully added new badge to db: " + this.toString());
                     }
                 });
     }
+
+
 }
