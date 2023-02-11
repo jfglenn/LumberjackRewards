@@ -8,6 +8,8 @@ import android.widget.EditText;
 import android.widget.ListView;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 import java.util.ArrayList;
 
 public class BadgesActivity extends AppCompatActivity {
@@ -43,7 +45,6 @@ public class BadgesActivity extends AppCompatActivity {
             }
             return true;
         });
-
         // on below line we are initializing our variables.
         // on below line we are creating variables.
         ListView languageLV = findViewById(R.id.idLVLanguages);
@@ -69,7 +70,6 @@ public class BadgesActivity extends AppCompatActivity {
 
             // on below line we are checking if item is not empty
             if (!item.isEmpty()) {
-
                 // on below line we are adding item to our list.
                 lngList.add(item);
 
