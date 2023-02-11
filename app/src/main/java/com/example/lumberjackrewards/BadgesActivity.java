@@ -13,7 +13,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.ArrayList;
 
 public class BadgesActivity extends AppCompatActivity {
-
     private EditText itemEdt;
     private ArrayList<String> lngList;
 
@@ -45,6 +44,10 @@ public class BadgesActivity extends AppCompatActivity {
             }
             return true;
         });
+
+        // on below line we are accessing Cloud Firestore instance
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
         // on below line we are initializing our variables.
         // on below line we are creating variables.
         ListView languageLV = findViewById(R.id.idLVLanguages);
@@ -70,6 +73,18 @@ public class BadgesActivity extends AppCompatActivity {
 
             // on below line we are checking if item is not empty
             if (!item.isEmpty()) {
+
+                // on below line we are splitting String item to
+                // populate BadgeItemModel
+                String[] badgeItemAttributes = item.split(", ");
+
+                // on below line we are populating BadgeItemModel
+                // int badgeID, String description, String name, String icon
+                BadgeItemModel newBadge = new BadgeItemModel(Integer.parseInt(badgeItemAttributes[0]), badgeItemAttributes[1], badgeItemAttributes[2], badgeItemAttributes[3]);
+
+                // on below line we are adding badge to database
+                newBadge.addNewBadgeItem(db);
+
                 // on below line we are adding item to our list.
                 lngList.add(item);
 
