@@ -22,7 +22,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     //public static final String BADGES_OWNED_COLUMN_UserID = "UserID";
     //public static final String BADGES_OWNED_COLUMN_BadgeID= "BadgeID";
 
-    public DataBaseHelper(@Nullable Context context) {
+    public DataBaseHelper(Context context) {
         super(context, DATABASE_NAME, null, 1);
     }
 

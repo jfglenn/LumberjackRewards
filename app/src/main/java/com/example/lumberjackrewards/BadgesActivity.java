@@ -2,18 +2,28 @@ package com.example.lumberjackrewards;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
 import java.util.ArrayList;
 
 public class BadgesActivity extends AppCompatActivity {
-
     private EditText itemEdt;
-    private ArrayList<String> lngList;
+    private ArrayList<BadgeItemModel> lngList;
+    private ArrayAdapter<BadgeItemModel> adapter;
+    private FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +54,13 @@ public class BadgesActivity extends AppCompatActivity {
             return true;
         });
 
+        // on below line we are accessing Cloud Firestore instance
+        db = FirebaseFirestore.getInstance();
+
+        // on below line we are populating list view
+        // with current badges in the database
+        displayAllBadges();
+
         // on below line we are initializing our variables.
         // on below line we are creating variables.
         ListView languageLV = findViewById(R.id.idLVLanguages);
@@ -53,11 +70,11 @@ public class BadgesActivity extends AppCompatActivity {
         lngList = new ArrayList<>();
 
         // on below line we are adding items to our list
-        lngList.add("C++");
-        lngList.add("Python");
+        //lngList.add("C++");
+        //lngList.add("Python");
 
         // on the below line we are initializing the adapter for our list view.
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, lngList);
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, lngList);
 
         // on below line we are setting adapter for our list view.
         languageLV.setAdapter(adapter);
@@ -70,8 +87,19 @@ public class BadgesActivity extends AppCompatActivity {
             // on below line we are checking if item is not empty
             if (!item.isEmpty()) {
 
+                // on below line we are splitting String item to
+                // populate BadgeItemModel
+                String[] badgeItemAttributes = item.split(", ");
+
+                // on below line we are populating BadgeItemModel
+                // int badgeID, String description, String name, String icon
+                BadgeItemModel newBadge = new BadgeItemModel(Integer.parseInt(badgeItemAttributes[0]), badgeItemAttributes[1], badgeItemAttributes[2], badgeItemAttributes[3]);
+
+                // on below line we are adding badge to database
+                newBadge.addNewBadgeItem(db);
+
                 // on below line we are adding item to our list.
-                lngList.add(item);
+                lngList.add(newBadge);
 
                 // on below line we are notifying adapter
                 // that data in list is updated to
@@ -99,6 +127,32 @@ public class BadgesActivity extends AppCompatActivity {
 
         });
 
+        // the onItemClickListener below makes the remove button obsolete
+        languageLV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                BadgeItemModel item = adapter.getItem(position);
+                item.deleteBadgeItem(db);
+                lngList.remove(position);
+                adapter.notifyDataSetChanged();
+            }
+        });
+    }
+    private void displayAllBadges() {
+        db.collection("badges")
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        ArrayList<BadgeItemModel> badges = new ArrayList<>();
+                        for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
+                            BadgeItemModel badge = document.toObject((BadgeItemModel.class));
+                            badges.add(badge);
+                            Log.d("UPDATE_LIST_VIEW", "Successfully refreshed list view");
+                        }
+                        adapter.addAll(badges);
+                    }
+                });
     }
 
 }
