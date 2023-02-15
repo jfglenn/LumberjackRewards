@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.navigation_home:
                     break;
                 case R.id.navigation_settings:
-                    startActivity(new Intent(getApplicationContext(),SettingsActivity.class));
+                    startActivity(new Intent(getApplicationContext(),Settings.class));
                     //overridePendingTransition(0,0);
                     break;
             }

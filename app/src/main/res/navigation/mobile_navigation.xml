@@ -19,7 +19,7 @@
 
     <fragment
         android:id="@+id/navigation_settings"
-        android:name="com.example.lumberjackrewards.SettingsActivity"
+        android:name="com.example.lumberjackrewards.Settings"
         android:label="@string/title_settings"
-        tools:layout="@layout/activity_settings" />
+        tools:layout="@layout/settings_page" />
 </navigation>
