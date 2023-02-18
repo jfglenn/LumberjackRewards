@@ -1,3 +1,7 @@
+import android.util.Log;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 public class User {
     private String fName;
     private String lName;
@@ -43,6 +47,29 @@ public class User {
         this.role = role;
     }
 
+    public void addNewUser(FirebaseFirestore db){
+        String documentID = this.geteMail().replaceAll("\\s", "");
+
+        // on below line are are deleting a new badge to the db
+        db.collection("users").document(documentID).set(this)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    public void onSuccess(Void unused) {
+                        Log.d("NEW_USER", "Successfully added new user to db: " + this.toString());
+                    }
+                });
+    }
+
+    public void deleteUser(FirebaseFirestore db){
+        String documentID = this.geteMail().replaceAll("\\s", "");
+
+        // on below line are are deleting a user to the db
+        db.collection("users").document(documentID).delete()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    public void onSuccess(Void unused) {
+                        Log.d("DELETE_USER", "Successfully deleted user from db: " + this.toString());
+                    }
+                });
+    }
 
 
 
