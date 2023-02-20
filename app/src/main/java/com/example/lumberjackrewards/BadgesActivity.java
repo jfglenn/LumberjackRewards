@@ -23,6 +23,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 
 public class BadgesActivity extends AppCompatActivity {
+    // Badges backend
     private EditText itemEdt;
     private ArrayList<BadgeItemModel> lngList;
     private ArrayAdapter<BadgeItemModel> adapter;
