@@ -1,4 +1,6 @@
-public class User {
+package com.example.lumberjackrewards;
+
+public class UserModel {
     private String fName;
     private String lName;
     private String eMail;
@@ -36,7 +38,7 @@ public class User {
         this.role = role;
     }
 
-    public User(String fName, String lName, String eMail, String role) {
+    public UserModel(String fName, String lName, String eMail, String role) {
         this.fName = fName;
         this.lName = lName;
         this.eMail = eMail;
