@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".BadgesActivity">
+    tools:context=".BadgesActivity"
+    android:background="#2A0068">
 
     <!--on below line we are creating edit text
          for adding a new item to list-->
@@ -50,12 +51,24 @@
         tools:ignore="RelativeOverlap" />
 
     <!--list view to display list of languages-->
-
+    <!--
     <ListView
         android:id="@+id/idLVLanguages"
         android:layout_width="match_parent"
         android:layout_height="600dp"
         android:layout_below="@id/idEdtItemName" />
+    -->
+
+    <!-- Playing around with images-->
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvBadges"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        tools:listitem="@layout/item_badge"
+       />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
