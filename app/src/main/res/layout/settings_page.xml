@@ -6,48 +6,58 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".Settings">
     <!-- Top Navigation Bar -->
-    <RelativeLayout
+    <LinearLayout
         android:layout_width = "match_parent"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
         >
-
-        <Button
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/backButton"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:layout_width="100dp"
+        <RelativeLayout
+            android:layout_width = "match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/back"
-            android:visibility="visible"
-             />
-            <!--app:icon="@drawable/back_btn" -->
+            android:background="@color/purple_700"
+            >
 
-        <!-- android:src = "drawable/back_btn" -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text = "@string/settings"
-            android:layout_centerInParent = "true"
-            android:textColor = "@color/black"
-            android:textStyle= "bold"
-            android:textSize = "18sp"
-            android:visibility="visible"
-            android:background="@color/black"
-            />
-    </RelativeLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/purple_700"
-        android:orientation="vertical"
-        tools:context=".Settings">
+            <Button
+                android:id="@+id/backButton"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                android:textColor = "@color/white"
+                app:icon="@drawable/back_btn"
+                android:layout_marginStart="20dp"
+                 />
+                <!--app:icon="@drawable/back_btn" -->
+
+            <!-- android:src = "drawable/back_btn" -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text = "@string/settings"
+                android:layout_centerInParent = "true"
+                android:textColor = "@color/white"
+                android:textStyle= "bold"
+                android:textSize = "18sp"
+                android:visibility="visible"
+                />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/purple_700"
+            android:orientation="vertical"
+            tools:context=".Settings">
+        </LinearLayout>
     </LinearLayout>
 
 
-    <ScrollView android:layout_marginTop="30dp"
+    <ScrollView android:layout_marginTop="48dp"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/scrollView">
+        android:id="@+id/scrollView"
+        android:background="@color/purple_500"
+        android:paddingBottom="70dp">
 
 
         <LinearLayout
@@ -93,7 +103,7 @@
                 android:paddingEnd="30dp"
                 android:text="@string/edit_profile"
                 android:textAllCaps="false"
-                android:textColor="@color/primary" />
+                android:textColor="@color/white" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -108,11 +118,11 @@
                 <!--Dark Mode / Night Mode-->
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:padding="5dp">
                     <!--night mode-->
                     <ImageView
                         android:contentDescription="@string/night_mode"
-
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:background="@drawable/round_back_night_mode"
@@ -141,7 +151,7 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp">
+                    android:padding="5dp">
 
                     <ImageView
                         android:id="@+id/notificationIcon"
@@ -179,13 +189,14 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="40dp"
                 android:layout_marginEnd="20dp"
-                android:background="@drawable/round_back_white10_20"
                 android:orientation="vertical"
-                android:padding="15dp">
+                android:padding="15dp"
+                android:background="@drawable/round_back_white10_20">
                 <!-- Security-->
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:padding="5dp">
 
                     <ImageView
                         android:id="@+id/security_icon"
@@ -219,7 +230,8 @@
                 <!-- Text Size-->
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:padding="5dp">
 
                     <ImageView
                         android:id="@+id/text_size_icon"
@@ -264,7 +276,8 @@
                 <!--Send Us A Messages-->
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:padding="5dp">
 
                     <ImageView
                         android:id="@+id/message_icon"
@@ -331,7 +344,8 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignLeft="@id/backButton">
+                    android:padding="5dp"
+                    >
 
                     <ImageView
                         android:id="@+id/faq_icon"
@@ -363,8 +377,7 @@
 
             </LinearLayout>
 
-
-            <!-- ex -->
+            <!-- Log Out -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -374,57 +387,13 @@
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/round_back_white10_20"
                 android:orientation="vertical"
-                android:padding="15dp">
+                android:padding="15dp"
+                android:paddingBottom="5dp">
                 <!-- Log Out-->
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:background="@drawable/round_back_security"
-                        android:padding="12dp"
-                        android:src="@drawable/log_out_icon"
-                        android:contentDescription="@string/log_out"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginStart="20dp"
-                        android:text="@string/log_out"
-                        android:textColor="#FFFFFF"
-                        android:textStyle="bold" />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
-                        android:src="@drawable/right_arrow_icon"
-                        android:contentDescription="@string/settings"/>
-                </RelativeLayout>
-            </LinearLayout>
-
-
-
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="40dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginBottom="20dp"
-                android:background="@drawable/round_back_white10_20"
-                android:orientation="vertical"
-                android:padding="15dp">
-                <!-- Log Out-->
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:padding="5dp">
 
                     <ImageView
                         android:id="@+id/log_out_icon"
@@ -451,7 +420,8 @@
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
                         android:src="@drawable/right_arrow_icon"
-                        android:contentDescription="@string/settings"/>
+                        android:contentDescription="@string/settings"
+                        android:paddingBottom="5dp"/>
                 </RelativeLayout>
             </LinearLayout>
         </LinearLayout>
