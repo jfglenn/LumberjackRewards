@@ -8,8 +8,11 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.GridLayout;
 import android.widget.ListView;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -20,10 +23,12 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 
 public class BadgesActivity extends AppCompatActivity {
+    // Badges backend
     private EditText itemEdt;
     private ArrayList<BadgeItemModel> lngList;
     private ArrayAdapter<BadgeItemModel> adapter;
     private FirebaseFirestore db;
+    private RecyclerView rvBadge;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +36,25 @@ public class BadgesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_badges);
 
         // Initialize and assign variable
+        rvBadge = findViewById(R.id.rvBadges);
+        ArrayList<BadgeItemModel> arrBadges = new ArrayList<>();
         BottomNavigationView bottomNavigationView=findViewById(R.id.bottom_navigation);
+
+        //testing badge recycle view layout
+        for (int i = 0; i < 40; i++){
+            //Add values in array List
+            arrBadges.add(new BadgeItemModel(i, "test", "Example" + i, "badge_ex1"));
+        }
+
+        //layout manager for badge test
+        GridLayoutManager layoutManager = new GridLayoutManager(this, 2);
+
+        //set layout manager
+        rvBadge.setLayoutManager(layoutManager);
+
+        //set adapter
+        rvBadge.setAdapter(new BadgeViewAdapter(arrBadges));
+
 
         // Set Home selected
         bottomNavigationView.setSelectedItemId(R.id.navigation_badges);
@@ -63,7 +86,8 @@ public class BadgesActivity extends AppCompatActivity {
 
         // on below line we are initializing our variables.
         // on below line we are creating variables.
-        ListView languageLV = findViewById(R.id.idLVLanguages);
+
+        /*ListView languageLV = findViewById(R.id.idLVLanguages);*/
         Button addBtn = findViewById(R.id.idBtnAdd);
         Button removeBtn = findViewById(R.id.idBtnRmv);
         itemEdt = findViewById(R.id.idEdtItemName);
@@ -77,7 +101,7 @@ public class BadgesActivity extends AppCompatActivity {
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, lngList);
 
         // on below line we are setting adapter for our list view.
-        languageLV.setAdapter(adapter);
+       /* languageLV.setAdapter(adapter);*/
 
         // on below line we are adding click listener for our button.
         addBtn.setOnClickListener(v -> {
@@ -127,8 +151,9 @@ public class BadgesActivity extends AppCompatActivity {
 
         });
 
+        //-----------------uncomment(if languageLV will still be used)---------------
         // the onItemClickListener below makes the remove button obsolete
-        languageLV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+       /* languageLV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 BadgeItemModel item = adapter.getItem(position);
@@ -136,8 +161,9 @@ public class BadgesActivity extends AppCompatActivity {
                 lngList.remove(position);
                 adapter.notifyDataSetChanged();
             }
-        });
+        });*/
     }
+
     private void displayAllBadges() {
         db.collection("badges")
                 .get()
