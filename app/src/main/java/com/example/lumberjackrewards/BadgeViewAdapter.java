@@ -29,6 +29,7 @@ public class BadgeViewAdapter extends RecyclerView.Adapter<BadgeViewAdapter.View
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         //set text
         holder.txtView.setText(arrItemBadges.get(position).getName());
+
     }
 
     @Override

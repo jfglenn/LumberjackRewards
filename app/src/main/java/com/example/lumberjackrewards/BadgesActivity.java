@@ -10,11 +10,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridLayout;
 import android.widget.ListView;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -35,25 +39,44 @@ public class BadgesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_badges);
 
+        // on below line we are accessing Cloud Firestore instance
+        db = FirebaseFirestore.getInstance();
+
         // Initialize and assign variable
         rvBadge = findViewById(R.id.rvBadges);
         ArrayList<BadgeItemModel> arrBadges = new ArrayList<>();
         BottomNavigationView bottomNavigationView=findViewById(R.id.bottom_navigation);
 
         //testing badge recycle view layout
-        for (int i = 0; i < 40; i++){
+        /*for (int i = 0; i < 40; i++){
             //Add values in array List
             arrBadges.add(new BadgeItemModel(i, "test", "Example" + i, "badge_ex1"));
-        }
+        }*/
+        db.collection("badges")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            BadgeItemModel badge = document.toObject(BadgeItemModel.class);
+                            arrBadges.add(badge);
+                        }
+                        Log.d("PRINT_ARRAY", arrBadges.get(0).toString());
 
-        //layout manager for badge test
-        GridLayoutManager layoutManager = new GridLayoutManager(this, 2);
 
-        //set layout manager
-        rvBadge.setLayoutManager(layoutManager);
+                        //layout manager for badge test
+                        GridLayoutManager layoutManager = new GridLayoutManager(getApplicationContext(), 2);
 
-        //set adapter
-        rvBadge.setAdapter(new BadgeViewAdapter(arrBadges));
+                        //set layout manager
+                        rvBadge.setLayoutManager(layoutManager);
+
+                        //set adapter
+                        rvBadge.setAdapter(new BadgeViewAdapter(arrBadges));
+
+                    }
+
+                });
+
 
 
         // Set Home selected
@@ -76,9 +99,6 @@ public class BadgesActivity extends AppCompatActivity {
             }
             return true;
         });
-
-        // on below line we are accessing Cloud Firestore instance
-        db = FirebaseFirestore.getInstance();
 
         // on below line we are populating list view
         // with current badges in the database
@@ -163,7 +183,6 @@ public class BadgesActivity extends AppCompatActivity {
             }
         });*/
     }
-
     private void displayAllBadges() {
         db.collection("badges")
                 .get()
